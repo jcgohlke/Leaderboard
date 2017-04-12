@@ -45,3 +45,40 @@ func processSaveScore(request: HTTPRequest, _ response: HTTPResponse)
   
   response.completed()
 }
+
+func getHighScores(request: HTTPRequest, _ response: HTTPResponse)
+{
+  response.setHeader(.contentType, value: "application/json")
+  
+  var responseDictionary = [String: Any]()
+  
+  let scores = Score(connect)
+  let cursor = StORMCursor(limit: 10, offset: 0)
+  
+  do {
+    try scores.select(columns: ["username", "displayname", "score"], whereclause: "score > :1", params: [0], orderby: ["score DESC"], cursor: cursor)
+    var resultArray = [[String: Any]]()
+    
+    for row in scores.rows()
+    {
+      var aScoreDictionary = [String: Any]()
+      aScoreDictionary["username"] = row.userName
+      aScoreDictionary["score"] = row.score
+      aScoreDictionary["displayname"] = row.displayName
+      resultArray.append(aScoreDictionary)
+    }
+    
+    responseDictionary["highscores"] = resultArray
+  } catch
+  {
+    print(error)
+  }
+  
+  do {
+    try response.setBody(json: responseDictionary)
+  } catch
+  {
+    print(error)
+  }
+  response.completed()
+}

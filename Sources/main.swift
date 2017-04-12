@@ -13,6 +13,8 @@ let server = HTTPServer()
 let logger = RequestLogger()
 server.setRequestFilters([(logger, .high)])
 server.setResponseFilters([(logger, .low)])
+RequestLogFile.location = "./weblog.log"
+
 
 var routes = Routes()
 
@@ -24,6 +26,7 @@ routes.add(method: .get, uri: "/", handler: {
 })
 
 routes.add(method: .post, uri: "api/v1/save", handler: processSaveScore)
+routes.add(method: .get, uri: "api/v1/highscores", handler: getHighScores)
 
 server.addRoutes(routes)
 
