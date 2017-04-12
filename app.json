@@ -1,0 +1,15 @@
+{
+	"name": "Leaderboard API",
+	"description": "An example API using Swift on Heroku.",
+	"repository": "https://github.com/jcgohlke/Leaderboard",
+	"website": "https://github.com/jcgohlke/Leaderboard",
+	"keywords": [
+		"swift",
+		"leaderboard"
+	],
+	"buildpacks": [
+		{
+			"url": "https://github.com/kylef/heroku-buildpack-swift"
+		}
+	]
+}
