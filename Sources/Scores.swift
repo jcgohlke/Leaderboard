@@ -46,7 +46,7 @@ class Score: SQLiteStORM
   override public func setup()
   {
     do {
-      try sqlExec("CREATE TABLE IF NOT EXISTS Scores (id TEXT PRIMARY KEY NOT NULL, username TEXT, displayname TEXT, score INT) ")
+      try sqlExec("CREATE TABLE IF NOT EXISTS Scores (id TEXT PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT, displayname TEXT, score INT) ")
     } catch
     {
       print(error)
